@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import StrMethodFormatter
 import streamlit as st
 from PIL import Image
+import datetime
 from datetime import date
 
 st.set_page_config(page_title = 'Foreseer', page_icon = ':dart:', layout = 'centered', initial_sidebar_state = 'auto')
@@ -69,40 +70,60 @@ def get_user_input():
     input_day_of_week = date_input.weekday()
     input_hour = time_input
     
-    features = {'month': input_month,
-            'date_of_month': input_date_of_month,
-            'day_of_week': input_day_of_week,
-            'hour': input_hour}
+    features = {
+            'Month': input_month,
+            'Date_of_month': input_date_of_month,
+            'Day_of_week': input_day_of_week,
+            'Hour': input_hour,
+            'Full_date': date_input,
+            'Full_time': time_input, 
+            'City': city}
     
     data = pd.DataFrame(features, index=[0])
 
     return data
 
 user_input_df = get_user_input()
+
 processed_user_input = data_preprocessor(user_input_df)
 
 prediction = model.predict([processed_user_input])
+
 
 #####################################################################################
 # Frontend
 
 
-# st.sidebar.markdown('Select below')
+st.title('Welcome to Foreseer')
+st.subheader('Predict the crowd - Choose your city from the left sidebar')
 
+st.header('Your input ')
+st.write('')
+st.write(str(user_input_df['City'][0]), ':city_sunrise:', str(user_input_df['Full_date'][0]), ':date:', datetime.time(user_input_df['Full_time'][0]).strftime("%I:00 %p"), ':clock2:')
 
-st.title('Welcome to Foreseer ' + ':battery:')
+############# Prediction
 
-st.header('Live prediction ' + ':dart:')
+st.header('Our prediction ')
+st.subheader(':point_right: ' + str(int(prediction)) + ' people' + ' :man-woman-girl-boy:')
 
-above_text = 'That is above the average 923 in York City!'
-below_text = 'That is below the average 923 in York City!'
+# Graph
 
-if prediction > 923:
-    st.subheader('Our model predicts that there will be ' + str(int(prediction))  + ' people in York City given your input data.')
-    st.subheader(above_text)            
-else:
-    st.subheader('Our model predicts that there will be ' + str(int(prediction))  + ' people in York City given your input data.')
-    st.subheader(below_text) 
+# The model
+
+############# About York City
+
+st.header('York City ')
+st.write('')
 
 image = Image.open('YorkCity.jpg')
 st.image(image, caption = 'York City', use_column_width = True)
+
+st.header('About')
+
+st.markdown('- Average crowd: 923')
+st.markdown('- Total area: 271.94 km2')
+st.markdown('- Total population: 210,618')
+
+st.subheader('Useful sources: ')
+st.write('- https://en.wikipedia.org/wiki/York')
+st.write('- https://www.york.gov.uk/')
