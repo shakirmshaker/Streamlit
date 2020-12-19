@@ -95,7 +95,7 @@ prediction = model.predict([processed_user_input])
 
 
 st.title('Welcome to Foreseer')
-st.subheader('Predict the crowd - Choose your city from the left sidebar')
+st.subheader('Predict the crowd - Choose from the left sidebar')
 
 st.header('Your input ')
 st.write('')
@@ -103,10 +103,8 @@ st.write(str(user_input_df['City'][0]), ':city_sunrise:', str(user_input_df['Ful
 
 ############# Prediction
 
-# st.subheader('Live prediction ' + ':point_right: ' + str(int(prediction)) + ' :man-woman-girl-boy:')
-
 st.header('Our prediction ')
-st.subheader(':point_right: ' + str(int(prediction)) + ' people' + ' :man-woman-girl-boy:')
+st.subheader(str(int(prediction)) + ' people' + ' :man-woman-girl-boy:')
 
 # Graph
 
