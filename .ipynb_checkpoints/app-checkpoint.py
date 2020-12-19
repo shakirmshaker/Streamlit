@@ -9,7 +9,7 @@ from PIL import Image
 import datetime
 from datetime import date
 
-# st.set_page_config(page_title = 'Foreseer', page_icon = ':dart:', layout = 'centered', initial_sidebar_state = 'auto')
+st.set_page_config(page_title = 'Foreseer', page_icon = ':dart:', layout = 'centered', initial_sidebar_state = 'auto')
 
 data = pd.read_csv('FinalData.csv')
 
