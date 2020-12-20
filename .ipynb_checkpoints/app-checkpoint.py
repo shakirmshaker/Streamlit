@@ -94,6 +94,16 @@ prediction = model.predict([processed_user_input])
 # Frontend
 data = pd.read_csv('FinalData.csv')
 
+
+# About the prediction
+st.sidebar.title('Machine learning')
+st.sidebar.write('The prediction is based on a Random Forest Regressor with an 87.5% accuracy. The Random Forest method is an ensemble method that combines several Decision Trees where the feature and threshold attribute of each node is chosen based on the Gini impurity index:')
+st.sidebar.latex('Gini = 1 -\sum_{k=0}^{K-1}{p_k}^2')
+st.sidebar.write('Read more about the used Random Forest Regressor from scikit learn here:')
+st.sidebar.markdown(
+    """<a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html/">Random Forest Regression</a>""", unsafe_allow_html=True,
+)
+
 # Team 
 st.sidebar.title('Foreseer bio')
 st.sidebar.write('We are a team of college students working on this project like it is our full time job. Any amount would help support and continue development on this project and is greatly appreciated.')
@@ -138,8 +148,6 @@ if user_input_df['City'][0] == 'Coney Street, York City':
     plt.legend()
 
     st.pyplot(plt)
-
-    # The model
 
     ############# About York City
 
