@@ -96,12 +96,12 @@ data = pd.read_csv('FinalData.csv')
 
 
 # About the prediction
-st.sidebar.title('Machine learning')
+st.sidebar.title('Machine learning model')
 st.sidebar.write('The prediction is based on a Random Forest Regressor with an 87.5% accuracy. The Random Forest method is an ensemble method that combines several Decision Trees where the feature and threshold attribute of each node is chosen based on the Gini index:')
 st.sidebar.latex('Gini = 1 -\sum_{k=0}^{K-1}{p_k}^2')
 st.sidebar.write('Read more about the used Random Forest Regressor from scikit learn here:')
 st.sidebar.markdown(
-    """<a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html/">Random Forest Regression</a>""", unsafe_allow_html=True,
+    """<a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html">Random Forest Regression</a>""", unsafe_allow_html=True,
 )
 
 # Team 
