@@ -151,7 +151,7 @@ if user_input_df['City'][0] == 'Coney Street, York City':
 
     st.header('About')
 
-    st.markdown('- Average crowd: 923')
+    st.markdown('- Time zone: UTC+00:00')
     st.markdown('- Total area: 271.94 km2')
     st.markdown('- Total population: 210,618')
 
@@ -160,6 +160,23 @@ if user_input_df['City'][0] == 'Coney Street, York City':
     st.write('- https://www.york.gov.uk/')
     
 elif user_input_df['City'][0] == 'Strøget, Copenhagen':
+    
     st.subheader('Coming soon ' + ':exclamation:' + ':exclamation:')
 
 ############# About Copenhagen
+
+    st.header('Copenhagen ')
+    st.write('')
+
+    image = Image.open('Copenhagen.jpg')
+    st.image(image, caption = 'Strøget, Copenhagen', use_column_width = True)
+
+    st.header('About')
+
+    st.markdown('- Time zone: UTC+01:00')
+    st.markdown('- Total area: 292.5 km2')
+    st.markdown('- Total population: 794,128')
+
+    st.subheader('Useful sources: ')
+    st.write('- https://en.wikipedia.org/wiki/Copenhagen')
+    st.write('- https://www.visitcopenhagen.com/')
