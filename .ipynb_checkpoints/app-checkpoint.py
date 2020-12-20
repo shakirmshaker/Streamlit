@@ -97,7 +97,7 @@ data = pd.read_csv('FinalData.csv')
 
 # About the prediction
 st.sidebar.title('Machine learning')
-st.sidebar.write('The prediction is based on a Random Forest Regressor with an 87.5% accuracy. The Random Forest method is an ensemble method that combines several Decision Trees where the feature and threshold attribute of each node is chosen based on the Gini impurity index:')
+st.sidebar.write('The prediction is based on a Random Forest Regressor with an 87.5% accuracy. The Random Forest method is an ensemble method that combines several Decision Trees where the feature and threshold attribute of each node is chosen based on the Gini index:')
 st.sidebar.latex('Gini = 1 -\sum_{k=0}^{K-1}{p_k}^2')
 st.sidebar.write('Read more about the used Random Forest Regressor from scikit learn here:')
 st.sidebar.markdown(
@@ -125,9 +125,9 @@ if user_input_df['City'][0] == 'Coney Street, York City':
 
     st.subheader(str(int(prediction)) + ' people' + ' :man-woman-girl-boy:')
     if prediction > data['TotalCount'].unique().mean():
-        st.write('That is above the average ' + str(int(data['TotalCount'].unique().mean())) + ' in ' + str(user_input_df['City'][0] + ' :warning:'))
+        st.write('That is above the average of ' + str(int(data['TotalCount'].unique().mean())) + ' people in ' + str(user_input_df['City'][0] + ' :warning:'))
     else:
-        st.write('That is below the average ' + str(int(data['TotalCount'].unique().mean())) + ' in ' + str(user_input_df['City'][0] + ' :white_check_mark:'))
+        st.write('That is below the average of ' + str(int(data['TotalCount'].unique().mean())) + ' people in ' + str(user_input_df['City'][0] + ' :white_check_mark:'))
 
     # Graph
     x = data['date_hour']
