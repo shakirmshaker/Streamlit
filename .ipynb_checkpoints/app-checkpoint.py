@@ -13,7 +13,7 @@ st.set_page_config(page_title = 'Foreseer', page_icon = ':dart:', layout = 'cent
 
 data = pd.read_csv('FinalData.csv')
 
-# Load  model a 
+# Load  model 
 model = pickle.load(open('model.pkl', 'rb'))
 
 def data_preprocessor(df):
@@ -59,7 +59,7 @@ def get_user_input():
     """
     st.sidebar.title('Select here ' + ':point_down:')
     
-    city = st.sidebar.selectbox("Select city ", ("Coney Street, York City", ))
+    city = st.sidebar.selectbox("Select city ", ("Coney Street, York City", 'Strøget, Copenhagen'))
     
     date_input = st.sidebar.date_input('Select date', min_value = date.today())
     
@@ -92,6 +92,12 @@ prediction = model.predict([processed_user_input])
 
 #####################################################################################
 # Frontend
+data = pd.read_csv('FinalData.csv')
+
+# Team 
+st.sidebar.title('Foreseer bio')
+st.sidebar.write('We are a team of college students working on this project like it is our full time job. Any amount would help support and continue development on this project and is greatly appreciated.')
+st.sidebar.write('_Foreseer, TechLabs 2020 &trade;_')
 
 # Title
 st.title('Welcome to Foreseer')
@@ -104,39 +110,56 @@ st.write(str(user_input_df['City'][0]), ':city_sunrise:', str(user_input_df['Ful
 
 # Prediction
 st.header('Our prediction ')
-st.subheader(str(int(prediction)) + ' people' + ' :man-woman-girl-boy:')
 
-# Team 
-st.sidebar.title('Foreseer bio')
-st.sidebar.write('We are a team of college students working on this project like it is our full time job. Any amount would help support and continue development on this project and is greatly appreciated.')
-st.sidebar.write('_Foreseer, TechLabs 2020 &trade;_')
+if user_input_df['City'][0] == 'Coney Street, York City':
 
-# Graph
+    st.subheader(str(int(prediction)) + ' people' + ' :man-woman-girl-boy:')
+    if prediction > data['TotalCount'].unique().mean():
+        st.write('That is above the average ' + str(int(data['TotalCount'].unique().mean())) + ' in ' + str(user_input_df['City'][0] + ' :warning:'))
+    else:
+        st.write('That is below the average ' + str(int(data['TotalCount'].unique().mean())) + ' in ' + str(user_input_df['City'][0] + ' :white_check_mark:'))
 
-data = pd.read_csv('FinalData.csv')
-chart_data = data[['TotalCount', 'date_hour']]
+    # Graph
+    x = data['date_hour']
+    y = data['TotalCount']
 
-st.line_chart(chart_data.rename(columns={'date_hour':'index'}).set_index('index'))
+    plt.scatter(x, y,  cmap = 'inferno')
+    plt.xlabel('Hour')
+    plt.ylabel('Total Count')
+    plt.plot(int(user_input_df['Full_time'][0]), int(prediction), 'ro', label = 'Prediction')
+    plt.plot([0, 23], [int(data['TotalCount'].unique().mean()), int(data['TotalCount'].unique().mean())], label = 'Mean')
 
+    t11 = ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
 
-# The model
+    plt.xticks(range(len(t11)), t11, size='small', rotation='vertical')
 
-############# About York City
+    plt.rcParams["figure.figsize"] = [12, 6]
 
-st.header('York City ')
-st.write('')
+    plt.legend()
 
-image = Image.open('YorkCrowd.jpg')
-st.image(image, caption = 'Coney Street, York City', use_column_width = True)
+    st.pyplot(plt)
 
-st.header('About')
+    # The model
 
-st.markdown('- Average crowd: 923')
-st.markdown('- Total area: 271.94 km2')
-st.markdown('- Total population: 210,618')
+    ############# About York City
 
-st.subheader('Useful sources: ')
-st.write('- https://en.wikipedia.org/wiki/York')
-st.write('- https://www.york.gov.uk/')
+    st.header('York City ')
+    st.write('')
+
+    image = Image.open('YorkCrowd.jpg')
+    st.image(image, caption = 'Coney Street, York City', use_column_width = True)
+
+    st.header('About')
+
+    st.markdown('- Average crowd: 923')
+    st.markdown('- Total area: 271.94 km2')
+    st.markdown('- Total population: 210,618')
+
+    st.subheader('Useful sources: ')
+    st.write('- https://en.wikipedia.org/wiki/York')
+    st.write('- https://www.york.gov.uk/')
+    
+elif user_input_df['City'][0] == 'Strøget, Copenhagen':
+    st.subheader('Coming soon ' + ':exclamation:' + ':exclamation:')
 
 ############# About Copenhagen
