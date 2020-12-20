@@ -59,7 +59,7 @@ def get_user_input():
     """
     st.sidebar.title('Select here ' + ':point_down:')
     
-    city = st.sidebar.selectbox("Select city ", ("York City", ))
+    city = st.sidebar.selectbox("Select city ", ("Coney Street, York City", ))
     
     date_input = st.sidebar.date_input('Select date', min_value = date.today())
     
@@ -93,20 +93,31 @@ prediction = model.predict([processed_user_input])
 #####################################################################################
 # Frontend
 
-
+# Title
 st.title('Welcome to Foreseer')
-st.subheader('Predict the crowd - Choose from the left sidebar')
+st.subheader('_Predict the crowd - select from the left sidebar_')
 
+# Input
 st.header('Your input ')
 st.write('')
 st.write(str(user_input_df['City'][0]), ':city_sunrise:', str(user_input_df['Full_date'][0]), ':date:', datetime.time(user_input_df['Full_time'][0]).strftime("%I:00 %p"), ':clock2:')
 
-############# Prediction
-
+# Prediction
 st.header('Our prediction ')
 st.subheader(str(int(prediction)) + ' people' + ' :man-woman-girl-boy:')
 
+# Team 
+st.sidebar.title('Foreseer bio')
+st.sidebar.write('We are a team of college students working on this project like it is our full time job. Any amount would help support and continue development on this project and is greatly appreciated.')
+st.sidebar.write('_Foreseer, TechLabs 2020 &trade;_')
+
 # Graph
+
+data = pd.read_csv('FinalData.csv')
+chart_data = data[['TotalCount', 'date_hour']]
+
+st.line_chart(chart_data.rename(columns={'date_hour':'index'}).set_index('index'))
+
 
 # The model
 
@@ -115,8 +126,8 @@ st.subheader(str(int(prediction)) + ' people' + ' :man-woman-girl-boy:')
 st.header('York City ')
 st.write('')
 
-image = Image.open('YorkCity.jpg')
-st.image(image, caption = 'York City', use_column_width = True)
+image = Image.open('YorkCrowd.jpg')
+st.image(image, caption = 'Coney Street, York City', use_column_width = True)
 
 st.header('About')
 
@@ -127,3 +138,5 @@ st.markdown('- Total population: 210,618')
 st.subheader('Useful sources: ')
 st.write('- https://en.wikipedia.org/wiki/York')
 st.write('- https://www.york.gov.uk/')
+
+############# About Copenhagen
