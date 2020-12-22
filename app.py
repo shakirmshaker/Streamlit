@@ -9,8 +9,18 @@ from PIL import Image
 import datetime
 from datetime import date
 
+# Settings
 st.set_page_config(page_title = 'Foreseer', page_icon = ':dart:', layout = 'centered', initial_sidebar_state = 'auto')
 
+hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
+
+# Dataset
 data = pd.read_csv('FinalData.csv')
 
 # Load  model 
