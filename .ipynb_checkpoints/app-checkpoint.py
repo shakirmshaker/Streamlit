@@ -28,6 +28,7 @@ hide_streamlit_style = """
     
             </style>
             """
+
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
 
 # Dataset
@@ -77,7 +78,7 @@ def get_user_input():
     this function is used to get user input using sidebar slider and selectbox 
     return type : pandas dataframe
     """
-    st.sidebar.title('Select here ' + ':point_down:')
+    st.sidebar.title('Select here' + ':point_down:')
     
     city = st.sidebar.selectbox("Select city ", ("Coney Street, York City", 'Strøget, Copenhagen'))
     
